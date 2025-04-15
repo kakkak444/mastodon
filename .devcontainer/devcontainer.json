@@ -23,7 +23,7 @@
     }
   },
 
-  "remoteUser": "root",
+  "remoteUser": "vscode",
 
   "otherPortsAttributes": {
     "onAutoForward": "silent"
