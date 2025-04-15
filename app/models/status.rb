@@ -44,7 +44,8 @@ class Status < ApplicationRecord
   include Status::ThreadingConcern
   include Status::Visibility
 
-  MEDIA_ATTACHMENTS_LIMIT = 4
+  MEDIA_ATTACHMENTS_LIMIT = 8
+  MEDIA_ATTACHMENTS_LIMIT_REMOTE = 4
 
   QUOTE_APPROVAL_POLICY_FLAGS = {
     unknown: (1 << 0),
@@ -293,7 +294,11 @@ class Status < ApplicationRecord
     else
       map = media_attachments.index_by(&:id)
       ordered_media_attachment_ids.filter_map { |media_attachment_id| map[media_attachment_id] }
-    end.take(MEDIA_ATTACHMENTS_LIMIT)
+    end.take(media_attachments_max)
+  end
+
+  def media_attachments_max
+    local? ? MEDIA_ATTACHMENTS_LIMIT : MEDIA_ATTACHMENTS_LIMIT_REMOTE
   end
 
   def replies_count
