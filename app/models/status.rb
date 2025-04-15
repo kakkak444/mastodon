@@ -59,7 +59,8 @@ class Status < ApplicationRecord
     quote: { status: { account: [:account_stat, user: :role] } },
   ].freeze
 
-  MEDIA_ATTACHMENTS_LIMIT = 4
+  MEDIA_ATTACHMENTS_LIMIT = 8
+  MEDIA_ATTACHMENTS_LIMIT_REMOTE = 4
 
   rate_limit by: :account, family: :statuses
 
@@ -292,7 +293,11 @@ class Status < ApplicationRecord
     else
       map = media_attachments.index_by(&:id)
       ordered_media_attachment_ids.filter_map { |media_attachment_id| map[media_attachment_id] }
-    end.take(MEDIA_ATTACHMENTS_LIMIT)
+    end.take(media_attachments_max)
+  end
+
+  def media_attachments_max
+    local? ? MEDIA_ATTACHMENTS_LIMIT : MEDIA_ATTACHMENTS_LIMIT_REMOTE
   end
 
   def replies_count
