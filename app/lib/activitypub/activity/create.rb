@@ -99,7 +99,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
   end
 
   def process_status_params
-    attachment_ids = process_attachments.take(Status::MEDIA_ATTACHMENTS_LIMIT).map(&:id)
+    attachment_ids = process_attachments.take(Status::MEDIA_ATTACHMENTS_LIMIT_REMOTE).map(&:id)
 
     @params = {
       uri: @status_parser.uri,
@@ -311,7 +311,7 @@ class ActivityPub::Activity::Create < ActivityPub::Activity
 
       media_attachment_parser = ActivityPub::Parser::MediaAttachmentParser.new(attachment)
 
-      next if media_attachment_parser.remote_url.blank? || media_attachments.size >= Status::MEDIA_ATTACHMENTS_LIMIT
+      next if media_attachment_parser.remote_url.blank? || media_attachments.size >= Status::MEDIA_ATTACHMENTS_LIMIT_REMOTE
 
       begin
         media_attachment = MediaAttachment.create(
