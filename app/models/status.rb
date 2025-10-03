@@ -44,7 +44,7 @@ class Status < ApplicationRecord
   include Status::ThreadingConcern
   include Status::Visibility
 
-  MEDIA_ATTACHMENTS_LIMIT = 8
+  MEDIA_ATTACHMENTS_LIMIT = 9
   MEDIA_ATTACHMENTS_LIMIT_REMOTE = 4
 
   QUOTE_APPROVAL_POLICY_FLAGS = {
