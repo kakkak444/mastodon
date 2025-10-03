@@ -103,6 +103,20 @@ class Item extends PureComponent {
       height = 50;
     }
 
+    if ((size === 5 && index > 0) || size === 6) {
+      height = 50;
+    }
+
+    if (size === 7 && !(index === 4 || index === 5)) {
+      height = 50;
+    }
+
+    if (size === 8 || size === 9) {
+      if (size !== 8 || index !== 5) {
+        height = 50;
+      }
+    }
+
     const description = attachment.getIn(['translation', 'description']) || attachment.get('description');
 
     if (description?.length > 0) {
