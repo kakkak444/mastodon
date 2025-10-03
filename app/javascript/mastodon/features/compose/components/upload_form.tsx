@@ -190,7 +190,11 @@ export const UploadForm: React.FC = () => {
                     id={id}
                     dragging={id === activeId}
                     tall={
-                      mediaIds.size < 3 || (mediaIds.size === 3 && idx === 0)
+                      mediaIds.size < 3 ||
+                      (mediaIds.size === 3 && idx === 0) ||
+                      (mediaIds.size === 5 && idx === 0) ||
+                      (mediaIds.size === 7 && (idx === 4 || idx === 5)) ||
+                      (mediaIds.size === 8 && idx === 5)
                     }
                     wide={mediaIds.size === 1}
                   />
